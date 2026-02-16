@@ -10,6 +10,7 @@
     --border-color: #B2DFDB; /* Light teal border */
     --background-color-light: #f5f5f5; /* Lighter grey for elements */
     --button-text-color: var(--white);
+    --primary-color-rgb: 76, 175, 80; /* RGB for primary-color */
 }
 
 body.dark-mode {
@@ -24,6 +25,7 @@ body.dark-mode {
     --border-color: #4CAF50; /* Greenish border */
     --background-color-light: #303030; /* Darker grey for elements */
     --button-text-color: var(--text-color);
+    --primary-color-rgb: 102, 187, 106; /* RGB for primary-color in dark mode */
 }
 
 body {
@@ -179,4 +181,99 @@ input:checked + .slider:before {
 /* Styles for lotto-generator (shadow DOM) are handled internally by main.js */
 lotto-generator {
     display: block; /* Ensure it takes up space */
+}
+
+/* Contact Form Section */
+.contact-form-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.contact-form-section h2 {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    text-shadow: 1px 1px 2px var(--shadow-color-1);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--background-color-light);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"] 또는:focus,
+.contact-form textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.3);
+    outline: none;
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.submit-btn {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px var(--shadow-color-1);
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.submit-btn:hover {
+    background-color: #FFB300; /* Slightly darker yellow */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px var(--shadow-color-2);
+}
+
+.formspree-notice {
+    font-size: 0.85rem;
+    color: var(--text-color);
+    margin-top: 1rem;
+}
+
+.formspree-notice a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.formspree-notice a:hover {
+    text-decoration: underline;
 }
