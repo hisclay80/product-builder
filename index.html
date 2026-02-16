@@ -10,6 +10,14 @@
   <div class="container">
     <h1>Lotto Number Generator</h1>
     <div class="controls">
+      <div class="theme-switch-wrapper">
+        <span>Light Mode</span>
+        <label class="theme-switch" for="checkbox">
+          <input type="checkbox" id="checkbox" />
+          <div class="slider round"></div>
+        </label>
+        <span>Dark Mode</span>
+      </div>
       <label for="numSets">Number of Sets:</label>
       <input type="number" id="numSets" value="1" min="1" max="5">
       <button id="generateBtn">Generate Numbers</button>

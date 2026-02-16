@@ -1,4 +1,5 @@
 :root {
+    /* Light Mode Variables */
     --primary-color: #4CAF50; /* A fresh green */
     --secondary-color: #FFC107; /* A warm yellow */
     --background-color: #e0f2f1; /* Light teal background */
@@ -8,6 +9,21 @@
     --shadow-color-2: rgba(0, 0, 0, 0.25);
     --border-color: #B2DFDB; /* Light teal border */
     --background-color-light: #f5f5f5; /* Lighter grey for elements */
+    --button-text-color: var(--white);
+}
+
+body.dark-mode {
+    /* Dark Mode Variables */
+    --primary-color: #66BB6A; /* Lighter green for dark mode contrast */
+    --secondary-color: #FFD54F; /* Lighter yellow for dark mode contrast */
+    --background-color: #212121; /* Dark grey background */
+    --text-color: #E0E0E0; /* Light grey text */
+    --white: #424242; /* Darker 'white' for elements that were white */
+    --shadow-color-1: rgba(0, 0, 0, 0.3);
+    --shadow-color-2: rgba(0, 0, 0, 0.5);
+    --border-color: #4CAF50; /* Greenish border */
+    --background-color-light: #303030; /* Darker grey for elements */
+    --button-text-color: var(--text-color);
 }
 
 body {
@@ -21,7 +37,7 @@ body {
     align-items: center;
     min-height: 100vh;
     box-sizing: border-box;
-    /* Removed background-image subtle-noise.png as it might not exist */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
@@ -32,6 +48,7 @@ body {
     text-align: center;
     max-width: 600px;
     width: 100%;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 h1 {
@@ -39,6 +56,7 @@ h1 {
     color: var(--primary-color);
     margin-bottom: 2rem;
     text-shadow: 1px 1px 2px var(--shadow-color-1);
+    transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
 .controls {
@@ -53,6 +71,7 @@ h1 {
     font-size: 1.1rem;
     font-weight: bold;
     color: var(--text-color);
+    transition: color 0.3s ease;
 }
 
 .controls input[type="number"] {
@@ -63,6 +82,9 @@ h1 {
     width: 80px;
     text-align: center;
     -moz-appearance: textfield; /* Firefox */
+    background-color: var(--background-color-light);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .controls input[type="number"]::-webkit-outer-spin-button,
@@ -73,7 +95,7 @@ h1 {
 
 #generateBtn {
     background-color: var(--primary-color);
-    color: var(--white);
+    color: var(--button-text-color);
     border: none;
     padding: 12px 25px;
     font-size: 1.1rem;
@@ -88,6 +110,70 @@ h1 {
     background-color: #43A047; /* Slightly darker green */
     transform: translateY(-2px);
     box-shadow: 0 6px 8px var(--shadow-color-2);
+}
+
+/* Theme Toggle Switch */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    gap: 10px;
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+}
+
+.slider:before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 26px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 26px;
+}
+
+input:checked + .slider {
+    background-color: var(--primary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.theme-switch-wrapper span {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    transition: color 0.3s ease;
 }
 
 /* Styles for lotto-generator (shadow DOM) are handled internally by main.js */
