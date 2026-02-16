@@ -4,42 +4,34 @@ class LottoGenerator extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.innerHTML = `
             <style>
-                .generator-button {
-                    background-color: var(--primary-color);
-                    color: var(--white);
-                    border: none;
-                    padding: 1rem 2rem;
-                    font-size: 1.2rem;
-                    border-radius: 10px;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    box-shadow: 0 4px 6px var(--shadow-color-1);
+                .lotto-sets-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                    margin-top: 2rem;
                 }
-
-                .generator-button:hover {
-                    transform: translateY(-2px);
-                    box-shadow: 0 6px 8px var(--shadow-color-2);
-                }
-
-                .numbers-display {
+                .lotto-set {
                     display: flex;
                     justify-content: center;
                     gap: 10px;
-                    margin-top: 2rem;
+                    padding: 10px;
+                    border: 1px solid var(--border-color);
+                    border-radius: 10px;
+                    background-color: var(--background-color-light);
                 }
-
                 .number-ball {
-                    width: 50px;
-                    height: 50px;
+                    width: 40px;
+                    height: 40px;
                     border-radius: 50%;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    font-size: 1.2rem;
+                    font-size: 1rem;
                     font-weight: bold;
                     color: var(--white);
                     animation: pop-in 0.5s ease-in-out forwards;
                     transform: scale(0);
+                    box-shadow: 0 2px 4px var(--shadow-color-1);
                 }
 
                 @keyframes pop-in {
@@ -48,33 +40,64 @@ class LottoGenerator extends HTMLElement {
                     }
                 }
             </style>
-            <button class="generator-button">Generate Numbers</button>
-            <div class="numbers-display"></div>
+            <div class="lotto-sets-container">
+                <!-- Lotto number sets will be displayed here -->
+            </div>
         `;
-
-        this.shadowRoot.querySelector('.generator-button').addEventListener('click', () => this.generateNumbers());
     }
 
-    generateNumbers() {
-        const numbersDisplay = this.shadowRoot.querySelector('.numbers-display');
-        numbersDisplay.innerHTML = '';
+    _generateSingleSet() {
         const numbers = new Set();
         while(numbers.size < 6) {
             numbers.add(Math.floor(Math.random() * 45) + 1);
         }
+        return Array.from(numbers).sort((a, b) => a - b);
+    }
 
-        Array.from(numbers).sort((a, b) => a - b).forEach((number, index) => {
-            const ball = document.createElement('div');
-            ball.classList.add('number-ball');
-            ball.textContent = number;
-            ball.style.animationDelay = `${index * 0.1}s`;
+    generateLottoSets(numSets) {
+        const lottoSetsContainer = this.shadowRoot.querySelector('.lotto-sets-container');
+        lottoSetsContainer.innerHTML = ''; // Clear previous results
 
-            const hue = (360 / 45) * number;
-            ball.style.backgroundColor = `hsl(${hue}, 80%, 60%)`;
+        for (let i = 0; i < numSets; i++) {
+            const lottoSet = this._generateSingleSet();
+            const lottoSetDiv = document.createElement('div');
+            lottoSetDiv.classList.add('lotto-set');
 
-            numbersDisplay.appendChild(ball);
-        });
+            lottoSet.forEach((number, index) => {
+                const ball = document.createElement('div');
+                ball.classList.add('number-ball');
+                ball.textContent = number;
+                ball.style.animationDelay = `${index * 0.1}s`;
+
+                const hue = (360 / 45) * number;
+                ball.style.backgroundColor = `hsl(${hue}, 80%, 60%)`;
+
+                lottoSetDiv.appendChild(ball);
+            });
+            lottoSetsContainer.appendChild(lottoSetDiv);
+        }
     }
 }
 
 customElements.define('lotto-generator', LottoGenerator);
+
+// External logic to connect HTML elements with the custom element
+document.addEventListener('DOMContentLoaded', () => {
+    const numSetsInput = document.getElementById('numSets');
+    const generateBtn = document.getElementById('generateBtn');
+    const lottoGeneratorElement = document.getElementById('lottoGenerator');
+
+    generateBtn.addEventListener('click', () => {
+        const numSets = parseInt(numSetsInput.value, 10);
+        if (lottoGeneratorElement && !isNaN(numSets) && numSets >= 1 && numSets <= 5) {
+            lottoGeneratorElement.generateLottoSets(numSets);
+        } else {
+            console.error('Invalid number of sets or lotto generator element not found.');
+        }
+    });
+
+    // Generate 1 set on initial load
+    if (lottoGeneratorElement) {
+        lottoGeneratorElement.generateLottoSets(1);
+    }
+});

@@ -1,16 +1,17 @@
-
 :root {
-    --primary-color: #FF6B6B;
-    --secondary-color: #FFD93D;
-    --background-color: #F8F9FA;
-    --text-color: #343A40;
+    --primary-color: #4CAF50; /* A fresh green */
+    --secondary-color: #FFC107; /* A warm yellow */
+    --background-color: #e0f2f1; /* Light teal background */
+    --text-color: #263238; /* Dark slate */
     --white: #FFFFFF;
-    --shadow-color-1: rgba(0, 0, 0, 0.1);
-    --shadow-color-2: rgba(0, 0, 0, 0.2);
+    --shadow-color-1: rgba(0, 0, 0, 0.15);
+    --shadow-color-2: rgba(0, 0, 0, 0.25);
+    --border-color: #B2DFDB; /* Light teal border */
+    --background-color-light: #f5f5f5; /* Lighter grey for elements */
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
     margin: 0;
@@ -19,30 +20,77 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: subtle-noise.png;
+    box-sizing: border-box;
+    /* Removed background-image subtle-noise.png as it might not exist */
 }
 
-main {
-    width: 100%;
-    max-width: 500px;
-}
-
-header {
+.container {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 20px var(--shadow-color-1), 0 6px 6px var(--shadow-color-2);
     text-align: center;
-    margin-bottom: 2rem;
+    max-width: 600px;
+    width: 100%;
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     color: var(--primary-color);
+    margin-bottom: 2rem;
     text-shadow: 1px 1px 2px var(--shadow-color-1);
 }
 
-lotto-generator {
-    display: block;
-    background: var(--white);
-    border-radius: 15px;
-    padding: 2rem;
-    box-shadow: 0 10px 20px var(--shadow-color-1), 0 6px 6px var(--shadow-color-2);
+.controls {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.controls label {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.controls input[type="number"] {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    width: 80px;
     text-align: center;
+    -moz-appearance: textfield; /* Firefox */
+}
+
+.controls input[type="number"]::-webkit-outer-spin-button,
+.controls input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#generateBtn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px var(--shadow-color-1);
+    font-weight: bold;
+}
+
+#generateBtn:hover {
+    background-color: #43A047; /* Slightly darker green */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px var(--shadow-color-2);
+}
+
+/* Styles for lotto-generator (shadow DOM) are handled internally by main.js */
+lotto-generator {
+    display: block; /* Ensure it takes up space */
 }
