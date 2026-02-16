@@ -1,1 +1,48 @@
-/* Add styles here */
+
+:root {
+    --primary-color: #FF6B6B;
+    --secondary-color: #FFD93D;
+    --background-color: #F8F9FA;
+    --text-color: #343A40;
+    --white: #FFFFFF;
+    --shadow-color-1: rgba(0, 0, 0, 0.1);
+    --shadow-color-2: rgba(0, 0, 0, 0.2);
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: subtle-noise.png;
+}
+
+main {
+    width: 100%;
+    max-width: 500px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    text-shadow: 1px 1px 2px var(--shadow-color-1);
+}
+
+lotto-generator {
+    display: block;
+    background: var(--white);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 20px var(--shadow-color-1), 0 6px 6px var(--shadow-color-2);
+    text-align: center;
+}
